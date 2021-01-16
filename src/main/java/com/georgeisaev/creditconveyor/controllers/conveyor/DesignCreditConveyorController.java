@@ -10,6 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,11 +22,11 @@ import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCredi
 import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct.BaseCreditProductType.EXPRESS_LOAN;
 import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct.BaseCreditProductType.MICROLOAN;
 import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct.BaseCreditProductType.MORTGAGE_LOAN;
-import static java.util.Collections.emptyList;
 
 @Slf4j
 @Controller
 @RequestMapping("/design")
+@SessionAttributes("conveyor")
 public class DesignCreditConveyorController {
 
 	@GetMapping
@@ -61,7 +62,7 @@ public class DesignCreditConveyorController {
 		for (var entry : productByType.entrySet()) {
 			model.addAttribute(entry.getKey().toString().toLowerCase(), entry.getValue());
 		}
-		model.addAttribute("design", new BaseCreditConveyor("", emptyList()));
+		model.addAttribute("design", new BaseCreditConveyor());
 	}
 
 }

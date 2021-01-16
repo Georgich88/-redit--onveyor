@@ -1,5 +1,6 @@
 package com.georgeisaev.creditconveyor.controllers;
 
+import com.georgeisaev.creditconveyor.configurations.WebConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(HomeController.class)
+@WebMvcTest(WebConfig.class)
 class HomeControllerTest {
 
 	@Autowired
