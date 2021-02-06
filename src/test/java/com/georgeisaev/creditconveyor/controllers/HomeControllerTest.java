@@ -22,7 +22,6 @@ class HomeControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Test
 	void testHomePage() {
 		assertDoesNotThrow(() -> {
 					mockMvc.perform(get("/"))
