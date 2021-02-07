@@ -1,37 +1,39 @@
 package com.georgeisaev.creditconveyor.security;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.SqlFragmentAlias;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
-
-import javax.sql.DataSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Slf4j
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private final DataSource dataSource;
+	private final UserDetailsService userDetailsService;
 
 	@Autowired
-	public SecurityConfig(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public SecurityConfig(@Qualifier("userRepositoryUserDetailsService") UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
+
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		log.warn(bCryptPasswordEncoder.encode("123"));
 		auth
-				.jdbcAuthentication()
-				.dataSource(dataSource)
-				.passwordEncoder(new BCryptPasswordEncoder());
+				.userDetailsService(userDetailsService)
+				.passwordEncoder(encoder());
 	}
 
 }
