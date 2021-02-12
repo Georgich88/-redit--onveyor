@@ -3,8 +3,10 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Credit conveyor</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 <body>
+<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 <h1>Login</h1>
 <img th:src="@{/images/CreditConveyor.jpg}" class="credit-conveyor-logo" alt="Credit conveyor"/>
 <div th:if="${error}">

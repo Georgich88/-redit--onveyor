@@ -1,7 +1,7 @@
-package com.georgeisaev.creditconveyor.services.security;
+package com.georgeisaev.creditconveyor.web.security;
 
 import com.georgeisaev.creditconveyor.domain.security.User;
-import com.georgeisaev.creditconveyor.repositories.security.UserRepository;
+import com.georgeisaev.creditconveyor.web.repositories.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

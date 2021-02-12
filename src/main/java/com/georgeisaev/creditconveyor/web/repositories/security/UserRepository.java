@@ -1,4 +1,4 @@
-package com.georgeisaev.creditconveyor.repositories.security;
+package com.georgeisaev.creditconveyor.web.repositories.security;
 
 import com.georgeisaev.creditconveyor.domain.security.User;
 import org.springframework.data.repository.CrudRepository;

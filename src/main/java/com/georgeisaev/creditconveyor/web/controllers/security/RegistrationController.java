@@ -1,8 +1,8 @@
-package com.georgeisaev.creditconveyor.controllers.security;
+package com.georgeisaev.creditconveyor.web.controllers.security;
 
 
 import com.georgeisaev.creditconveyor.domain.security.RegistrationForm;
-import com.georgeisaev.creditconveyor.repositories.security.UserRepository;
+import com.georgeisaev.creditconveyor.web.repositories.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;

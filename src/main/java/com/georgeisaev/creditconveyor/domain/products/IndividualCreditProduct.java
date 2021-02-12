@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @Entity
-public class BaseIndividualCreditProduct implements CreditProduct {
+public class IndividualCreditProduct implements CreditProduct {
 
 	@Id
 	private final String id;

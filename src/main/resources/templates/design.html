@@ -6,13 +6,20 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 <body>
+<form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+</form>
+<!--<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
 <h1>Design your credit conveyor!</h1>
 <img th:src="@{/images/CreditConveyor.jpg}" class="credit-conveyor-logo" alt="Credit conveyor"/>
-<form method="POST" th:object="${design}">
+<form method="POST" th:object="${conveyor}" th:action="@{/design}">
+    <span class="validationError"
+          th:if="${#fields.hasErrors('products')}"
+          th:errors="*{products}">Products Error</span>
     <div class="grid">
         <div class="product-group" id="consumers">
             <h3>Designate your consumer:</h3>
-            <!--/*@thymesVar id="consumer" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct>"*/-->
+            <!--/*@thymesVar id="consumer" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct>"*/-->
             <div th:each="product : ${consumer}">
                 <input name="products" type="checkbox" th:value="${product.id}"
                 />
@@ -21,7 +28,7 @@
         </div>
         <div class="product-group" id="express_loans">
             <h3>Pick your express loan:</h3>
-            <!--/*@thymesVar id="express_loan" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct>"*/-->
+            <!--/*@thymesVar id="express_loan" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct>"*/-->
             <div th:each="product : ${express_loan}">
                 <input name="products" type="checkbox" th:value="${product.id}"
                 />
@@ -30,7 +37,7 @@
         </div>
         <div class="product-group" id="microloans">
             <h3>Choose your microloan:</h3>
-            <!--/*@thymesVar id="microloan" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct>"*/-->
+            <!--/*@thymesVar id="microloan" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct>"*/-->
             <div th:each="product : ${microloan}">
                 <input name="products" type="checkbox" th:value="${product.id}"
                 />
@@ -39,7 +46,7 @@
         </div>
         <div class="product-group" id="car_loan">
             <h3>Determine your car loan:</h3>
-            <!--/*@thymesVar id="car_loan" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct>"*/-->
+            <!--/*@thymesVar id="car_loan" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct>"*/-->
             <div th:each="product : ${car_loan}">
                 <input name="products" type="checkbox" th:value="${product.id}"
                 />
@@ -48,7 +55,7 @@
         </div>
         <div class="product-group" id="mortgage_loans">
             <h3>Select your mortgage loan:</h3>
-            <!--/*@thymesVar id="mortgage_loan" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct>"*/-->
+            <!--/*@thymesVar id="mortgage_loan" type="java.util.List<com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct>"*/-->
             <div th:each="product : ${mortgage_loan}">
                 <input name="products" type="checkbox" th:value="${product.id}"
                 />

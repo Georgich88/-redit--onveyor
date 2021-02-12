@@ -1,7 +1,11 @@
-package com.georgeisaev.creditconveyor.controllers.companies;
+package com.georgeisaev.creditconveyor.web.controllers.companies;
 
 import com.georgeisaev.creditconveyor.domain.companies.Company;
+import com.georgeisaev.creditconveyor.domain.security.User;
+import com.georgeisaev.creditconveyor.web.repositories.companies.CompanyRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,6 +20,13 @@ import javax.validation.Valid;
 @RequestMapping("/companies")
 public class CompanyController {
 
+	private final CompanyRepository companyRepository;
+
+	@Autowired
+	public CompanyController(CompanyRepository companyRepository) {
+		this.companyRepository = companyRepository;
+	}
+
 	@GetMapping("/current")
 	public String companyForm(Model model) {
 		model.addAttribute("company", new Company());
@@ -23,11 +34,12 @@ public class CompanyController {
 	}
 
 	@PostMapping
-	public String processCompany(@Valid Company company, Errors errors) {
-		if (errors.hasErrors()){
+	public String processCompany(@Valid Company company, Errors errors, @AuthenticationPrincipal User user) {
+		if (errors.hasErrors()) {
 			return "companyForm";
 		}
-		log.info("Created company: " + company);
+		company.setCeo(user);
+		companyRepository.save(company);
 		return "redirect:/";
 	}
 

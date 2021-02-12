@@ -5,6 +5,9 @@
     <title>Credit conveyor</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
+<form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+</form>
 <body>
 <h1>Welcome to...</h1>
 <img th:src="@{/images/CreditConveyor.jpg}" class="credit-conveyor-logo" alt="Credit conveyor"/>
