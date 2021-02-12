@@ -1,13 +1,16 @@
-package com.georgeisaev.creditconveyor.controllers.conveyor;
+package com.georgeisaev.creditconveyor.web.controllers.conveyor;
 
-import com.georgeisaev.creditconveyor.domain.conveyor.BaseCreditConveyor;
+import com.georgeisaev.creditconveyor.domain.conveyor.SimpleCreditConveyor;
 import com.georgeisaev.creditconveyor.domain.products.CreditProduct;
 import com.georgeisaev.creditconveyor.domain.products.CreditProductType;
+import com.georgeisaev.creditconveyor.web.repositories.conveyor.CreditConveyorRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -17,11 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct.BaseCreditProductType.CAR_LOAN;
-import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct.BaseCreditProductType.CONSUMER;
-import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct.BaseCreditProductType.EXPRESS_LOAN;
-import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct.BaseCreditProductType.MICROLOAN;
-import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCreditProduct.BaseCreditProductType.MORTGAGE_LOAN;
+import static com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct.BaseCreditProductType.CAR_LOAN;
+import static com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct.BaseCreditProductType.CONSUMER;
+import static com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct.BaseCreditProductType.EXPRESS_LOAN;
+import static com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct.BaseCreditProductType.MICROLOAN;
+import static com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct.BaseCreditProductType.MORTGAGE_LOAN;
 
 @Slf4j
 @Controller
@@ -29,19 +32,32 @@ import static com.georgeisaev.creditconveyor.domain.products.BaseIndividualCredi
 @SessionAttributes("conveyor")
 public class DesignCreditConveyorController {
 
+	private final CreditConveyorRepository creditConveyorRepository;
+
+	@Autowired
+	public DesignCreditConveyorController(CreditConveyorRepository creditConveyorRepository) {
+		this.creditConveyorRepository = creditConveyorRepository;
+	}
+
 	@GetMapping
 	public String showDesignFrom(Model model) {
 		setDesignModelAttributes(model);
 		return "design";
 	}
 
+	@ModelAttribute(name = "conveyor")
+	public SimpleCreditConveyor conveyor() {
+		return new SimpleCreditConveyor();
+	}
+
 	@PostMapping
-	public String processDesign(Model model, @Valid BaseCreditConveyor conveyor, Errors errors) {
+	public String processDesign(Model model, @Valid SimpleCreditConveyor conveyor, Errors errors) {
 		if (errors.hasErrors()) {
 			setDesignModelAttributes(model);
 			return "design";
 		}
 		// TODO: Save the conveyor
+		creditConveyorRepository.save(conveyor);
 		log.info("Conveyor: " + conveyor);
 		return "redirect:/companies/current";
 
@@ -62,7 +78,7 @@ public class DesignCreditConveyorController {
 		for (var entry : productByType.entrySet()) {
 			model.addAttribute(entry.getKey().toString().toLowerCase(), entry.getValue());
 		}
-		model.addAttribute("design", new BaseCreditConveyor());
+		model.addAttribute("conveyor", new SimpleCreditConveyor());
 	}
 
 }

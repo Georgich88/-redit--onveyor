@@ -1,7 +1,6 @@
-package com.georgeisaev.creditconveyor.controllers;
+package com.georgeisaev.creditconveyor.web.controllers;
 
 import com.georgeisaev.creditconveyor.configurations.WebConfig;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

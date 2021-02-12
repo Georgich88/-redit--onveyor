@@ -1,9 +1,11 @@
 package com.georgeisaev.creditconveyor.domain.products;
 
+import com.georgeisaev.creditconveyor.domain.products.IndividualCreditProduct.BaseCreditProductType;
+
 public interface CreditProduct {
 
-	static CreditProduct of(String code, String name, BaseIndividualCreditProduct.BaseCreditProductType type) {
-		return new BaseIndividualCreditProduct(code, name, type);
+	static IndividualCreditProduct of(String code, String name, BaseCreditProductType type) {
+		return new IndividualCreditProduct(code, name, type);
 	}
 
 	CreditProductType getType();

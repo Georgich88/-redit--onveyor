@@ -16,6 +16,12 @@
         </span>
     </div>
     <h3>New company details...</h3>
+    <label for="tin">TIN: </label>
+    <input id="tin" type="text" th:field="*{tin}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('tin')}"
+          th:errors="*{tin}">TIN is required</span>
+    <br/>
     <label for="name">Name: </label>
     <input id="name" type="text" th:field="*{name}"/>
     <span class="validationError"
