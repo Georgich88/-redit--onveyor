@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "greeting.welcome",
+      "type": "java.lang.String",
+      "description": "Description for greeting.welcome."
+    },
+    {
+      "name": "conveyor.companies.pageSize",
+      "type": "java.lang.Integer",
+      "description": "Sets the maximum number of companies to display per list."
+    }
+  ]
+}
